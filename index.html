@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rockband Change | Official Site</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        
+        body { background-color: #050505; color: #eeeeee; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        
+        /* Times New Roman für Identität */
+        h1, h2, h3, .font-brand, .nav-link { font-family: 'Times New Roman', Times, serif; }
+
+        /* Hintergrund 1: Home & Momente */
+        .bg-main {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('hintergrund.jpg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+
+        /* Hintergrund 2: Band & Liveclips */
+        .bg-secondary {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('hintergrund2.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+        }
+
+        /* --- ANIMATIONEN --- */
+        .glitch-neon { 
+            animation: glitch-neon-anim 5s infinite; 
+            display: inline-block;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #dc2626;
+        }
+        @keyframes glitch-neon-anim {
+            0%, 96%, 98%, 100% { opacity: 1; transform: skewX(0deg); text-shadow: 0 0 5px #fff, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #dc2626; }
+            97% { opacity: 0.8; transform: skewX(-15deg); text-shadow: 3px 0 #fff, -3px 0 #ff0000, 0 0 30px #ff0000; }
+            99% { opacity: 0.9; transform: skewX(15deg); text-shadow: -3px 0 #fff, 3px 0 #ff0000, 0 0 30px #ff0000; }
+        }
+
+        .slideshow img { 
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0; transition: opacity 1s; 
+            animation: xfade 12s infinite; 
+        }
+        .slideshow img:nth-child(2) { animation-delay: 4s; }
+        .slideshow img:nth-child(3) { animation-delay: 8s; }
+        @keyframes xfade { 0%, 100% { opacity: 0; } 10%, 33% { opacity: 1; } 43% { opacity: 0; } }
+
+        .pulse-dot {
+            display: inline-block; width: 18px; height: 18px; background-color: #dc2626; 
+            border-radius: 50%; margin-left: 15px; box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+            animation: pulse-red 2s infinite;
+        }
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(220, 38, 38, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+
+        .marquee {
+            width: 100%; overflow: hidden; white-space: nowrap; position: relative;
+            background: rgba(220, 38, 38, 0.1); border-top: 1px solid rgba(220, 38, 38, 0.3); border-bottom: 1px solid rgba(220, 38, 38, 0.3);
+            padding: 15px 0;
+        }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .nav-blur { backdrop-filter: blur(15px); background: rgba(0, 0, 0, 0.85); }
+        #lightbox { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; cursor: zoom-out; }
+        #lightbox img { max-width: 95%; max-height: 95%; border: 1px solid #333; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div id="lightbox" onclick="this.style.display='none'"><img id="lightbox-img" src=""></div>
+
+    <nav class="fixed w-full z-50 nav-blur border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-6">
+                <img src="logo.png" alt="Logo" class="h-16 md:h-24 w-auto drop-shadow-lg" style="filter: brightness(1.2);">
+                <span class="text-3xl md:text-4xl font-brand font-bold uppercase italic text-red-600 tracking-tighter">Change</span>
+            </div>
+            <div class="hidden lg:flex space-x-10 text-[18px] font-bold uppercase tracking-[0.1em] nav-link">
+                <a href="#home" class="hover:text-red-600 transition">Home</a>
+                <a href="#band" class="hover:text-red-600 transition">Die Band</a>
+                <a href="#gallery" class="hover:text-red-600 transition">Momente</a>
+                <a href="#media" class="hover:text-red-600 transition">Live Clips</a>
+                <a href="#setlist" class="hover:text-red-600 transition">Songs</a>
+                <a href="#contact" class="hover:text-red-600 transition">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="bg-main min-h-screen flex flex-col justify-center items-center px-6 pt-32 text-center relative">
+        <div class="relative z-10 w-full">
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold uppercase italic mb-12 leading-none text-white drop-shadow-2xl">
+                Rockband <br> <span class="text-red-600 text-7xl md:text-[10rem] lg:text-[12rem] glitch-neon">Change</span>
+            </h1>
+            <div class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-center">
+                <img src="band-cover.jpg" class="rounded-2xl shadow-2xl border border-white/10 mx-auto w-full">
+                <div class="bg-black/70 p-8 md:p-10 rounded-2xl border border-white/5 backdrop-blur-md text-left shadow-2xl">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 uppercase text-red-600 font-brand">The Power of Rock</h2>
+                    <div class="text-gray-300 text-lg md:text-xl italic leading-relaxed space-y-6">
+                        <p>
+                            <strong>Change: Das Rock-Fundament aus dem Erzgebirge</strong><br>
+                            Seit unserer Gründung im Jahr 1998 steht der Name <strong>Change</strong> für energiegeladenen Cover-Rock, der keine Gefangenen macht. Nach einer Pause haben wir 2022 den Reset-Knopf gedrückt und sind seitdem in neuer Besetzung, mit frischem Elan und mehr Spielfreude denn je zurück auf den Bühnen.
+                        </p>
+                        <p>
+                            Was uns antreibt? Die Liebe zum echten, handgemachten Sound. Wir sind eine <strong>8-köpfige Formation</strong> aus dem Herzen Sachsens und haben uns einer Mission verschrieben: Authentische Rockmusik ohne Kompromisse. Bei uns ist „Live“ Programm – wir verzichten konsequent auf Autotune und kürzen keine Instrumentalsoli weg. Wir zelebrieren das musikalische Handwerk bei jedem Ton.
+                        </p>
+                        <p>
+                            <strong>Vier Jahrzehnte – Ein Setlist-Feuerwerk</strong><br>
+                            Unsere musikalische Reise führt durch über 40 Jahre Rockgeschichte. Wir bringen die zeitlosen Hymnen der 70er, den glorreichen Stadion-Rock der 80er und 90er sowie die stärksten Hits der heutigen Zeit auf die Bühne.
+                        </p>
+                        <p>
+                            Egal ob Stadt- oder Dorffest, Jubiläen oder exklusive Konzerte für echte Musikliebhaber – wir liefern Cover-Rock vom Feinsten direkt auf die Ohren. Wir freuen uns darauf, gemeinsam mit euch die nächste Bühne zu rocken!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <a href="#band" class="text-white/30 hover:text-red-600 text-4xl transition duration-300">
+                <i class="fa-solid fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="band" class="bg-secondary py-24 md:py-32 px-6 text-center">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 md:mb-24 uppercase italic tracking-widest">Die Band</h2>
+            <div id="member-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 text-left items-stretch"></div>
+        </div>
+    </section>
+
+    <section id="gallery" class="bg-main py-24 md:py-32 px-6">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 md:mb-20 uppercase italic tracking-widest text-red-600">Besondere Momente</h2>
+            <div class="columns-2 md:columns-4 gap-4 space-y-4">
+                <img src="moment1.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment2.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment3.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment4.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment5.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment6.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment7.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment8.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment9.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment10.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment11.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment12.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+                <img src="moment13.jpg" onclick="openLightbox(this.src)" class="rounded-xl w-full hover:scale-[1.02] transition duration-500 shadow-xl cursor-zoom-in border border-white/5">
+            </div>
+        </div>
+    </section>
+
+    <section id="media" class="bg-secondary py-24 md:py-32 px-6 text-center">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 md:mb-24 uppercase italic tracking-widest flex justify-center items-center">
+                Live Clips <span class="pulse-dot"></span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                <div class="rounded-xl border border-white/10 w-full aspect-[9/16] overflow-hidden bg-black shadow-2xl hover:border-red-600 transition relative">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/7fQDgDApekM" title="Change Live 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="rounded-xl border border-white/10 w-full aspect-[9/16] overflow-hidden bg-black shadow-2xl hover:border-red-600 transition relative">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/bQuP6lq8Yn8" title="Change Live 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="rounded-xl border border-white/10 w-full aspect-[9/16] overflow-hidden bg-black shadow-2xl hover:border-red-600 transition relative">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/XEPoAf8Y4lk" title="Change Live 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="rounded-xl border border-white/10 w-full aspect-[9/16] overflow-hidden bg-black shadow-2xl hover:border-red-600 transition relative">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/JUhCX-iJKSw" title="Change Live 4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="rounded-xl border border-white/10 w-full aspect-[9/16] overflow-hidden bg-black shadow-2xl hover:border-red-600 transition relative">
+                    <iframe class="absolute top-0 left-0 w-full h-full" src="https://www.youtube.com/embed/OllzWEO6PFw" title="Change Live 5" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 md:py-24 px-6 bg-black flex justify-center">
+        <div class="max-w-3xl w-full">
+            <img src="poster.jpg" class="rounded-lg shadow-2xl border-4 border-white/5 w-full h-auto hover:border-red-600 transition duration-700">
+        </div>
+    </section>
+
+    <section id="setlist" class="py-24 md:py-32 px-6 max-w-7xl mx-auto relative overflow-hidden">
+        <div class="flex justify-center mb-16">
+            <img src="logo.png" class="h-48 md:h-64 w-auto opacity-100" alt="Logo" style="filter: brightness(2) contrast(1.2);">
+        </div>
+        
+        <h2 class="text-4xl md:text-5xl font-bold text-center mb-10 md:mb-16 uppercase italic tracking-widest text-red-600">Repertoire Einblicke</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 relative z-10 mb-20">
+            <div class="bg-zinc-900/80 p-8 md:p-10 rounded-2xl border border-white/5 backdrop-blur-md shadow-2xl">
+                <h3 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-white border-b-2 border-red-600 pb-3 font-brand uppercase">International Highlights</h3>
+                <ul class="space-y-4 text-gray-300 text-base md:text-lg italic">
+                    <li><strong>Bon Jovi:</strong> Wanted Dead Or Alive, It's My Life, Runaway, Living On a Prayer, In These Arms</li>
+                    <li><strong>Bryan Adams:</strong> Summer Of 69, You Belong To Me, Back To You, When You're Gone</li>
+                    <li><strong>Queen:</strong> A Kind Of Magic, The Show Must Go On, We Will Rock You</li>
+                    <li><strong>Weitere:</strong> AC/DC, Status Quo, Kings of Leon, Mando Diao, U2, Amy Macdonald, Tina Turner, Madonna, The Proclaimers, The Cranberries, Billy Idol, Journey, Whitesnake...</li>
+                </ul>
+            </div>
+            <div class="bg-zinc-900/80 p-8 md:p-10 rounded-2xl border border-white/5 backdrop-blur-md shadow-2xl">
+                <h3 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-white border-b-2 border-red-600 pb-3 font-brand uppercase">Deutschrock & Kult</h3>
+                <ul class="space-y-4 text-gray-300 text-base md:text-lg italic">
+                    <li><strong>Westernhagen:</strong> Sexy, Willenlos</li>
+                    <li><strong>Die Ärzte:</strong> Westerland, Zu Spät</li>
+                    <li><strong>Peter Maffay:</strong> Sonne In Der Nacht</li>
+                    <li><strong>Puhdys:</strong> Alt wie ein Baum, Lebenszeit</li>
+                    <li><strong>Weitere:</strong> Keimzeit, Udo Lindenberg, Münchner Freiheit, Silly, Sportfreunde Stiller, Wir sind Helden, Rio Reiser...</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="marquee shadow-2xl">
+            <div class="marquee-content">
+                <span class="text-3xl font-brand uppercase italic mx-10 text-white opacity-80">...und viele viele mehr!</span>
+                <span class="text-3xl font-brand uppercase italic mx-10 text-red-600 opacity-80">...und viele viele mehr!</span>
+                <span class="text-3xl font-brand uppercase italic mx-10 text-white opacity-80">...und viele viele mehr!</span>
+                <span class="text-3xl font-brand uppercase italic mx-10 text-red-600 opacity-80">...und viele viele mehr!</span>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="py-24 md:py-32 bg-black px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-20 uppercase italic">Booking</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 text-center md:text-left">
+                <div>
+                    <h4 class="text-red-600 font-bold uppercase text-xs mb-8 tracking-widest">Management</h4>
+                    <p class="text-3xl font-bold mb-2 font-brand">David Nüßler</p>
+                    <p class="text-xl md:text-2xl font-bold mb-4 font-brand">0175/8637967</p>
+                    <a href="mailto:band-change@web.de" class="text-lg md:text-xl text-gray-500 hover:text-red-600 transition underline italic">band-change@web.de</a>
+                </div>
+                <div>
+                    <h4 class="text-red-600 font-bold uppercase text-xs mb-8 tracking-widest">Connect</h4>
+                    <div class="flex justify-center md:justify-start space-x-8 text-4xl mt-4">
+                        <a href="https://www.instagram.com/rockband.change/" target="_blank" class="hover:text-red-600 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/p/Rockband-Change-100034431829748/" target="_blank" class="hover:text-red-600 transition"><i class="fab fa-facebook"></i></a>
+                        <a href="https://app.backstagepro.de/rockbandchange" target="_blank" class="hover:text-white transition text-xs border-2 border-white px-3 py-1 flex items-center font-bold">BPRO</a>
+                    </div>
+                </div>
+                <div class="flex justify-center md:justify-end items-center">
+                    <img src="logo.png" class="h-32 w-auto opacity-80" alt="Logo" style="filter: brightness(1.5);">
+                </div>
+            </div>
+            <p class="text-[12px] text-gray-700 tracking-[0.5em] uppercase italic mt-20">© 2026 Rockband Change | Impressum | Datenschutz</p>
+        </div>
+    </footer>
+
+    <script>
+        const membersData = [
+            { id: "m1", name: "MISCHA", role: "Lead Vocals / Percussion", bio: "Mischa startete seine Reise 1997 am Schlagzeug, bevor ihn Gründungsmitglied Henk eher zufällig ans Mikrofon holte – der Beginn einer Ära als Frontmann von Change. Nach einer Stimmband-OP im Jahr 2004 bewies er absolute Kämpfernatur und erlernte sein Handwerk durch professionelle Ausbildung in Chemnitz völlig neu. Inspiriert von Ikonen wie Jon Bon Jovi und Freddie Mercury besticht er heute durch eine enorme stimmliche Wandlungsfähigkeit, die selbst vor Madonna oder Tina Turner nicht halt macht. Mit seiner stimmlichen Tiefe und dieser besonderen Anpassbarkeit begeistert er das Publikum bei jedem Gig aufs Neue. Ein echter Allrounder, der die Bühne mit seiner Stimme, Percussion und manchmal auf auf dem Schlagzeug zum Beben bringt." },
+            { id: "m2", name: "MATTZE", role: "Bass / Backing Vocals", bio: "Mattze ist Gründungsmitglied und das Fundament von Change. Seine musikalische Reise begann 1992 mit Gitarrenunterricht in Roger's Music Shop in Lugau. Als die Band 1998 im elterlichen Keller gegründet wurde, fehlte ein Bassist. Per Losentscheid musste Mattze an den Tieftöner wechseln – was sich schnell als absoluter Hauptgewinn entpuppte! Trotz gelegentlicher Ausflüge in andere Projekte blieb Change immer seine musikalische Heimat. Als unser ‚Strahlemann‘ mit dem legendären Zahnpasta-Lächeln sorgt er heute auf der Bühne nicht nur für beste Laune, sondern mit seinem Bass auch für den massiven Druck im Sound." },
+            { id: "m3", name: "JIMI", role: "Leadguitar / Backing Vocals", bio: "Jimi ist unser Youngster und ein echtes Phänomen an den sechs Saiten: 2020 kaufte er sich von seinem Jugendweihe-Geld die erste E-Gitarre und nutzte die Lockdown-Zeit für tägliche, stundenlange Übungssessions. Nur zwei Jahre später folgte die Feuertaufe – direkt als Leadgitarrist bei Change im Vorprogramm von Karat. Jimi zeichnet sich durch einen gesunden Perfektionismus aus und tüftelt ununterbrochen an vielseitigen Gitarrensounds, inspiriert von Größen wie Richie Sambora, Nuno Bettencourt oder Keith Scott. Ein junges Talent, für das die Musik längst zum Lebensmittelpunkt geworden ist." },
+            { id: "m4", name: "DAVID", role: "Drums", bio: "David ist seit 1989 an den Sticks aktiv und bringt jahrzehntelange Erfahrung aus der Blasmusik und verschiedenen Projekten mit. Bereits im Alter von 13 Jahren rockte er gemeinsam mit André in ihrer ersten Schülerband. Nach einem Workshop bei Bertram Engel im Jahr 2014 verfeinerte er seinen Stil weiter und sorgt seit 2016 als unser Schlagzeug-Fundament für den perfekten Drive bei jeder Show. Er hält den Laden hinter den Drums zusammen." },
+            { id: "m5", name: "MARCEL", role: "Rhythmguitar / Backing Vocals", bio: "Marcel ist seit 2004 an der Gitarre aktiv und verstärkt Change seit 2018. Doch Marcel ist ein echtes Allround-Talent: Über die Jahre hat er sich auch Bass und Schlagzeug angeeignet und nutzt seine Kenntnisse im Homerecording, um eigenes Material zu schreiben und zu produzieren. Sein Stil, geprägt von Einflüssen wie dem Deutsch/US-Punk, Bands wie den Beatles oder Roxette, sorgt für den druckvollen und ehrlichen Rhythmus der Band." },
+            { id: "m6", name: "MARIO", role: "Keyboard", bio: "Mario wuchs in einer Musikerfamilie auf und entdeckte das Klavier schon als Kleinkind für sich. Von autodidaktischen Anfängen bis hin zu jahrelanger Erfahrung in Tanzmusik bis Hardrock bringt er eine enorme Bandbreite mit. Als intuitiver Musiker sorgt er seit seinem Einstieg bei Change für den perfekten atmosphärischen Teppich und die nötige Gelassenheit im Bandgefüge." },
+            { id: "m7", name: "KRISTINA", role: "Lead Vocals", bio: "Kristina bereichert Change seit 2025 mit ihrer beeindruckenden Stimme und einer Bühnenpräsenz, die unter die Haut geht. Schon seit ihrer Kindheit ist die Musik ihr ständiger Begleiter, wobei sie ihre ersten großen Erfolge in einer Gospelgruppe feierte. Nach Auftritten beim Sächsischen Kultursommer fand sie ihren Weg in die Rockwelt. Getreu ihrem tätowierten Lebensmotto 'With the right music, you can either forget everything or remember everything' wird jeder Song mit ihr zu einer bleibenden Erinnerung. Ihre Leidenschaft und emotionale Tiefe machen sie zur perfekten Ergänzung unseres Line-ups." },
+            { id: "m8", name: "ANDRE", role: "Lead/Background Vocals & Rhythmguitar", bio: "Andre ist bei Change eine echte Institution. Bereits 2009 stieg er als Rhythmusgitarrist ein und prägte den Sound fast ein Jahrzehnt lang, bevor er 2018 an Marcel übergab. Dass er das Vermitteln im Blut hat, beweist nicht nur sein Beruf als Lehrer – er unterrichtete sogar Mattze zu dessen Schulzeiten –, sondern auch sein Gespür für das Publikum. Seit 2023 ist er gelegentlich als 8. Mitglied zurück bei Change und sorgt als Sänger und ultimative Stimmungskanone für Gänsehaut und Partylaune gleichermaßen. Wenn er nicht gerade mit der Band die Hütte abreißt, ist er mit seinem Akustikprojekt ‚Songbook‘ unterwegs und zeigt seine Leidenschaft für den puren, handgemachten Sound." }
+        ];
+
+        function openLightbox(src) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').style.display = 'flex';
+        }
+
+        const grid = document.getElementById('member-grid');
+        grid.innerHTML = membersData.map(m => `
+            <div class="bg-zinc-900/70 border border-white/5 rounded-2xl p-5 transition duration-500 hover:border-red-600 hover:shadow-[0_0_30px_rgba(220,38,38,0.3)] group backdrop-blur-sm cursor-pointer flex flex-col h-full">
+                <div class="slideshow relative h-64 md:h-80 w-full rounded-xl overflow-hidden mb-6 bg-zinc-800 flex-shrink-0">
+                    <img src="${m.id}-foto1.jpg">
+                    <img src="${m.id}-foto2.jpg">
+                    <img src="${m.id}-foto3.jpg">
+                </div>
+                <div class="flex-grow">
+                    <h3 class="text-2xl md:text-3xl font-bold text-red-600 uppercase tracking-tight leading-none mb-2 transition group-hover:scale-105 origin-left">${m.name}</h3>
+                    <p class="text-[12px] text-gray-400 uppercase tracking-widest mb-4 font-brand italic">${m.role}</p>
+                    <p class="text-sm md:text-base text-gray-300 leading-relaxed italic">${m.bio}</p>
+                </div>
+            </div>
+        `).join('');
+    </script>
+</body>
+</html>
